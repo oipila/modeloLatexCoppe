@@ -1,0 +1,60 @@
+%
+%
+%FRAGMENTOS DE CÓDIGO PASSÍVEIS DE SEREM USADOS:
+%
+%
+%
+
+%Criando modo de inserir lista de graficos
+\usepackage{float}
+\usepackage{caption}
+\newfloat{grafico}{htpb}{plt}[chapter]
+\floatname{grafico}{Gráfico}
+\newcommand{\listofgraficosname}{Lista de Gráficos}
+\newcommand{\listofgraficos}{%
+  \addcontentsline{toc}{chapter}{\listofgraficosname}
+  \listof{grafico}{\listofgraficosname}
+}
+
+%Criando modo de inserir lista de quadros
+\newfloat{quadro}{htpb}{plt}[chapter]
+\floatname{quadro}{Quadro}
+\newcommand{\listofquadrosname}{Lista de Quadros}
+\newcommand{\listofquadros}{%
+  \addcontentsline{toc}{chapter}{\listofquadrosname}
+  \listof{quadro}{\listofquadrosname}
+}
+
+\listofquadros
+\listofgraficos
+
+\symbl{Symbol}{Symbol Definition}, and
+for abbreviations \abbrev{Abbreviation}{Abbreviation Definition}
+
+%Sequência para compilação de forma a não inserir listas na ToC:
+%Compilar uma vez dentro do Atom mesmo, DEPOIS:
+makeindex -s coppe.ist -o 0Principal.lab 0Principal.abx
+makeindex -s coppe.ist -o 0Principal.los 0Principal.syx
+%Depois, compilar de novo dentro do Atom mesmo.
+
+%Esse só precisa usar se for compilar tudo por fora do Atom:
+dvipdf 0Principal.dvi
+
+%Capítulos iniciando no início da folha
+\makeatletter
+\renewcommand{\@makechapterhead}[1]{%
+  {\noindent\raggedright\normalfont% Alignment and font reset
+   \huge\bfseries \@chapapp\space\thechapter~~#1\par\nobreak}% Formatting
+  \vspace{\baselineskip}% ...just a little space
+}
+\makeatother
+
+%Alternativa descartada para criar epígrafes
+\usepackage{dirtytalk}
+\say{\textit{Beginning at the beginning,}} \textit{the King said gravely,}
+\say{\textit{and go on till you come to the end; then stop.}} --- \textit{Lewis Carroll, Alice in Wonderland}
+
+%Alternativa descartada para criar apêndices
+\appendix
+\include{apendicea}
+\include{apendiceb}
