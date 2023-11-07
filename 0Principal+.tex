@@ -1,0 +1,189 @@
+%
+%INÍCIO DO PREÂMBULO
+%
+
+\documentclass[mscexam,numbers]{coppe}
+%Pacotes padrão do CoppeTeX
+\usepackage{amsmath,amssymb}
+%Pacote Hyperref já usado mais abaixo com mais opções
+%\usepackage{hyperref}
+
+%Usando fonte semelhante à Times New Roman
+\usepackage[T1]{fontenc}
+\usepackage{tgtermes}
+
+\makelosymbols
+\makeloabbreviations
+
+%Criando modo de inserir lista específica de gráficos
+\usepackage{caption}
+\DeclareCaptionType{grafico}[Gráfico][Lista de Gráficos]
+
+%Criando modo de inserir lista específica de quadros
+\DeclareCaptionType{quadro}[Quadro][Lista de Quadros]
+
+%Substituindo "Capítulo X" no início de cada capítulo pelo nome do capítulo
+\usepackage{titlesec}
+%\titleformat{\chapter}[hang]{\bf\huge}{\thechapter}{2pc}{}
+%\titlespacing*{\chapter}{0pt}{-50pt}{40pt}
+
+%Removendo o espaçamento extra antes do início de cada capítulo
+\titleformat{\chapter}[display]
+{\normalfont\huge\bfseries}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{-50pt}{40pt}
+
+%Adicionando numeração ao nível 4, 5 e 6:1.1.1.1, 1.1.1.1.1 e 1.1.1.1.1.1
+\addtocounter{secnumdepth}{3}
+
+%Adicionando epígrafes
+\usepackage{epigraph}
+%Removendo o traço horizontal default da epígrafe
+\setlength{\epigraphrule}{0pt}
+
+%Adicionando o campo "fonte" nas ilustrações
+\newcommand{\source}[1]{\caption*{Fonte: {#1}} }
+
+%Adicionando apêndices de uma forma melhor
+\usepackage[titletoc]{appendix}
+
+%Melhorando a qualidade do Sumário
+\makeatletter
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak
+      \xleaders\hbox{$\m@th
+        \mkern \@dotsep mu\hbox{.}\mkern \@dotsep
+        mu$}\hfill%
+      \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+\renewcommand*\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
+\renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
+\renewcommand*\l@paragraph{\@dottedtocline{4}{10em}{5em}}
+\renewcommand*\l@subparagraph{\@dottedtocline{5}{12em}{6em}}
+\makeatother
+
+%Adicionando suporte para ilustrações que ocupam a página toda em modo paisagem
+\usepackage{pdflscape}
+
+%Adicionando suporte para tabelas espalhando-se por múltiplas páginas
+\usepackage{longtable}
+
+%Adicionando capacidade de referência e referência invertida em todo o documento
+\usepackage[backref=page]{hyperref}
+\def\backref#1{{\scriptsize [#1]}}
+
+%Adicionando índice remissivo no documento
+\usepackage{makeidx}
+\makeindex
+
+%Inserir como padrão a indentação do primeiro parágrafo de cada capítulo, que na língua inglesa não é o caso, porém na portuguesa é
+%Não altera nada para capítulos com epígrafe
+\usepackage{indentfirst}
+
+%
+%
+%FIM DO PREÂMBULO
+%
+%
+%
+
+\begin{document}
+  %Todo necessario para a criação dos seguintes elementos pré-textuais:
+  %1 Folha de rosto
+  %2 Folha de aprovação
+  %3 Ficha catalográfica
+  \title{Educação empreendedora nas escolas de engenharia: uma revisão sistemática da literatura}
+  \foreigntitle{Entrepreneurial education at engineering schools: a systematic literature review}
+  \author{Bruno}{Campana}
+  \advisor{Prof.}{Édison Renato Pereira da}{Silva}{D.Sc.}
+
+  \examiner{Prof.}{Édison Renato Pereira da Silva}{D.Sc.}
+  \examiner{Prof.}{Domício Proença Júnior}{D.Sc.}
+
+  \department{PEP}
+  \date{03}{2022}
+
+  \keyword{engineering education}
+  \keyword{entrepreneurial education}
+  \keyword{entrepreneurial engineering}
+
+  \maketitle
+  
+  \providecommand\frontmatter
+
+  %ajustar!
+  \dedication{Dedicado à minha linda esposa.}
+
+  \include{agradecimentos}
+
+  \input{resumo-em-portugues}
+
+  \input{resumo-em-ingles}
+
+  \tableofcontents
+  %\listoffigures
+  {%
+    \let\oldnumberline\numberline%
+    \renewcommand{\numberline}{\figurename~\oldnumberline}%
+    \listoffigures%
+  }
+  {%
+    \let\oldnumberline\numberline%
+    \renewcommand{\numberline}{\tablename~\oldnumberline}%
+    \listoftables%
+  }
+  %\listoftables
+  %\listofgraficos
+  {%
+    \let\oldnumberline\numberline%
+    \renewcommand{\numberline}{\graficoname~\oldnumberline}%
+    \listofgraficos%
+  }
+  %\listofquadros
+  {%
+    \let\oldnumberline\numberline%
+    \renewcommand{\numberline}{\quadroname~\oldnumberline}%
+    \listofquadros%
+  }
+  \printlosymbols
+  \printloabbreviations
+
+  \mainmatter
+
+  \include{1introducao}
+
+  \include{2revisao-bibliografica}
+
+  \include{3design-da-pesquisa}
+
+  \include{4analise}
+
+  \include{5sintese}
+
+  \include{6conclusoes}
+
+  \backmatter
+  %Incluir todas as referências do .bib que não foram citadas
+  \nocite{*}
+  \bibliographystyle{coppe-unsrt}
+  \bibliography{referencias}
+
+  \begin{appendices}
+    \include{apendicea}
+    \include{apendiceb}
+  \end{appendices}
+
+  \printindex
+\end{document}
